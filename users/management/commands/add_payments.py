@@ -1,7 +1,8 @@
-from django.core.management.base import BaseCommand
-from users.models import Payment
-from materials.models import Course, Lesson
 from django.contrib.auth import get_user_model
+from django.core.management.base import BaseCommand
+
+from materials.models import Course, Lesson
+from users.models import Payment
 
 User = get_user_model()
 
