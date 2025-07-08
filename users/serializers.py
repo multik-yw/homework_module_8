@@ -10,15 +10,21 @@ class PaymentSerializer(ModelSerializer):
         fields = '__all__'
 
 class UserSerializer(ModelSerializer):
-    payments = PaymentSerializer(many=True, read_only=True)
+    payments = PaymentSerializer(many=True, read_only=True)  # Добавляем read_only=True
 
     class Meta:
         model = User
-        fields = ['id', 'email', 'password', 'phone', 'city', 'avatar', 'payments']
-        extra_kwargs = {
-            'password': {'write_only': True},
-            'email': {'required': True}
-        }
+        fields = [
+            "id",
+            "email",
+            "password",
+            "phone",
+            "city",
+            "avatar",
+            "payments",
+            "is_moderator",
+        ]
+        extra_kwargs = {"password": {"write_only": True}, "email": {"required": True}}
 
     def create(self, validated_data):
         return super().create(validated_data)
