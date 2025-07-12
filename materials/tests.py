@@ -60,6 +60,23 @@ class LessonCRUDTestCase(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
+    def test_lesson_retrieve(self):
+        self.client.force_authenticate(user=self.other_user)
+        response = self.client.get(
+            reverse("materials:lesson_retrieve", args={self.lesson.pk,})
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_lesson_update(self):
+        self.client.force_authenticate(user=self.owner)
+        data = {"name": "Updated Lesson"}
+        response = self.client.patch(
+            reverse("materials:lesson_update", kwargs={"pk": self.lesson.pk}), data=data
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.lesson.refresh_from_db()
+        self.assertEqual(self.lesson.name, "Updated Lesson")
+
 
 class SubscriptionTestCase(APITestCase):
     def setUp(self):
