@@ -1,38 +1,40 @@
 from django.urls import path
-from rest_framework.permissions import AllowAny
-from rest_framework.routers import DefaultRouter
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-
-from users.apps import UsersConfig
-from users.views import (
-    PaymentViewSet,
-    UserCreateAPIView,
-    UserDeleteAPIView,
-    UserListAPIView,
-    UserProfileAPIView,
+from rest_framework.routers import SimpleRouter
+from materials.apps import MaterialsConfig
+from materials.views import (
+    CourseViewSet,
+    LessonCreateApiView,
+    LessonUpdateApiView,
+    LessonDestroyApiView,
+    LessonListApiView,
+    LessonRetrieveApiView,
+    SubscriptionAPIView,
 )
+from drf_yasg.utils import swagger_auto_schema
 
-app_name = UsersConfig.name
+app_name = MaterialsConfig.name
 
-router = DefaultRouter()
-router.register(r"payments", PaymentViewSet)
+router = SimpleRouter()
+router.register("", CourseViewSet)
+
+lesson_list = swagger_auto_schema(
+    method="get",
+    operation_summary="Список уроков",
+    operation_description="Возвращает paginated-список всех уроков.",
+    tags=["Уроки"],
+)(LessonListApiView.as_view())
 
 urlpatterns = [
-    path("register/", UserCreateAPIView.as_view(), name="register"),
+    path("lessons/", lesson_list, name="lessons_list"),
+    path("lessons/<int:pk>/", LessonRetrieveApiView.as_view(), name="lesson_retrieve"),
+    path("lessons/create/", LessonCreateApiView.as_view(), name="lesson_create"),
     path(
-        "login/",
-        TokenObtainPairView.as_view(permission_classes=(AllowAny,)),
-        name="token_obtain_pair",
+        "lessons/<int:pk>/delete/", LessonDestroyApiView.as_view(), name="lesson_delete"
     ),
     path(
-        "token/refresh",
-        TokenRefreshView.as_view(permission_classes=(AllowAny,)),
-        name="token_refresh",
+        "lessons/<int:pk>/update/", LessonUpdateApiView.as_view(), name="lesson_update"
     ),
-    path("profile/<int:pk>/", UserProfileAPIView.as_view(), name="profile-detail"),
-    path("profile/", UserProfileAPIView.as_view(), name="profile-current"),
-    path("profile/delete/", UserDeleteAPIView.as_view(), name="profile-delete"),
-    path("", UserListAPIView.as_view(), name="users-list"),
+    path("subscriptions/", SubscriptionAPIView.as_view(), name="subscriptions"),
 ]
 
 urlpatterns += router.urls

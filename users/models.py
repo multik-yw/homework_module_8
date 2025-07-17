@@ -97,6 +97,12 @@ class Payment(models.Model):
         verbose_name="Способ оплаты"
     )
 
+    stripe_product_id = models.CharField(max_length=100, blank=True, null=True)
+    stripe_price_id = models.CharField(max_length=100, blank=True, null=True)
+    stripe_session_id = models.CharField(max_length=100, blank=True, null=True)
+    stripe_payment_link = models.URLField(max_length=500, blank=True, null=True)
+    is_paid = models.BooleanField(default=False, verbose_name="Оплачено")
+
     class Meta:
         verbose_name = "Платеж"
         verbose_name_plural = "Платежи"
