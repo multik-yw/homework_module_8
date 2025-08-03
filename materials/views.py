@@ -1,3 +1,4 @@
+
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
@@ -21,6 +22,7 @@ from materials.serializers import (
 from drf_yasg import openapi
 from users.permissions import IsModer, IsOwner
 from drf_yasg.utils import swagger_auto_schema
+from materials.tasks import send_course_update_notification
 
 
 # Create your views here.
@@ -91,6 +93,10 @@ class CourseViewSet(ModelViewSet):
         context = super().get_serializer_context()
         context["request"] = self.request
         return context
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        send_course_update_notification.delay(instance.id)
 
 
 class LessonCreateApiView(CreateAPIView):
