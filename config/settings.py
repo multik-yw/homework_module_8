@@ -1,4 +1,5 @@
 import os
+import sys
 from datetime import timedelta
 from pathlib import Path
 
@@ -155,3 +156,11 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+if "test" in sys.argv:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "test_db.sqlite3",
+        }
+    }
