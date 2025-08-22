@@ -1,0 +1,5 @@
+[flake8]
+exclude = .git,venv,migrations, .venv
+max-line-length = 120
+per-file-ignores =
+    .venv/*:E301,E302,W391
