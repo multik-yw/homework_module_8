@@ -1,4 +1,3 @@
-
 from django.urls import reverse
 from rest_framework import status
 from drf_yasg import openapi
@@ -9,7 +8,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated
 
 from materials.models import Course
 from users.models import Payment, User
@@ -28,6 +27,8 @@ from users.services import (
     create_stripe_price,
     create_stripe_session,
 )
+
+# flake8: noqa F841
 
 
 # Create your views here.

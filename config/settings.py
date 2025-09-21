@@ -18,7 +18,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -87,7 +86,6 @@ DATABASES = {
         "PORT": os.getenv("DB_PORT"),
     }
 }
-
 
 
 AUTH_PASSWORD_VALIDATORS = [

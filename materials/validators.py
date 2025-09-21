@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 
+
 class YoutubeValidators:
 
     def __init__(self, field):

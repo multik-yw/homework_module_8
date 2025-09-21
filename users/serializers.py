@@ -9,6 +9,7 @@ class PaymentSerializer(ModelSerializer):
         model = Payment
         fields = '__all__'
 
+
 class UserSerializer(ModelSerializer):
     payments = PaymentSerializer(many=True, read_only=True)
 
@@ -36,6 +37,7 @@ class UserSerializer(ModelSerializer):
             instance.set_password(password)
             instance.save()
         return instance
+
 
 class UserProfileSerializer(ModelSerializer):
     class Meta:

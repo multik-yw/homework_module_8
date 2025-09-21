@@ -16,18 +16,13 @@ class Command(BaseCommand):
         Course.objects.all().delete()
         Payment.objects.all().delete()
 
-
         user1 = User.objects.create(email='test1@example.com',)
 
         user2 = User.objects.create(email='test2@example.com',)
 
-
         course1 = Course.objects.create(name='Тестовый курс 1',)
 
-        course2 = Course.objects.create( name='Тестовый курс 2',)
-
-
-        lesson1 = Lesson.objects.create(name='Тестовый урок 1', course=course1)
+        course2 = Course.objects.create(name='Тестовый курс 2',)
 
         lesson2 = Lesson.objects.create(name='Тестовый урок 2', course=course1)
 

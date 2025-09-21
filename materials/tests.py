@@ -4,6 +4,7 @@ from rest_framework.test import APITestCase
 from materials.models import Course, Lesson, Subscription
 from users.models import User
 
+
 class CourseTests(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user(email='testuser@example.com', password='testpass')
@@ -32,6 +33,7 @@ class CourseTests(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['name'], self.course.name)
+
 
 class LessonTests(APITestCase):
     def setUp(self):
@@ -69,6 +71,7 @@ class LessonTests(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['name'], self.lesson.name)
+
 
 class SubscriptionTests(APITestCase):
     def setUp(self):

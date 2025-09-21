@@ -4,6 +4,7 @@ from django.db import models
 
 from materials.models import Course, Lesson
 
+
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -18,6 +19,7 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
         return self.create_user(email, password, **extra_fields)
+
 
 class User(AbstractUser):
     username = None
@@ -57,6 +59,7 @@ class User(AbstractUser):
     class Meta:
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
+
 
 class Payment(models.Model):
     PAYMENT_METHOD_CHOICES = [
@@ -103,7 +106,8 @@ class Payment(models.Model):
     stripe_payment_link = models.URLField(max_length=500, blank=True, null=True)
     is_paid = models.BooleanField(default=False, verbose_name="Оплачено")
 
-    class Meta:
-        verbose_name = "Платеж"
-        verbose_name_plural = "Платежи"
-        ordering = ['-payment_date']
+
+class Meta:
+    verbose_name = "Платеж"
+    verbose_name_plural = "Платежи"
+    ordering = ['-payment_date']

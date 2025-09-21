@@ -55,11 +55,13 @@ class CourseDetailSerializer(ModelSerializer):
             "is_subscribed",
         )
 
+
 class LessonSerializer(ModelSerializer):
     class Meta:
         model = Lesson
         fields = '__all__'
         extra_kwargs = {"video_link": {"validators": [YoutubeValidators]}}
+
 
 class SubscriptionSerializer(ModelSerializer):
     class Meta:
