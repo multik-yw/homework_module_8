@@ -68,7 +68,7 @@ jobs:
 
       - name: Run flake8
         run: |
-          echo -e "[flake8]\nmax-line-length = 120\nexclude = .venv" > .flake8
+          echo -e "[flake8]\nmax-line-length = 120\nexclude = .venv,migrations,.git,venv" > .flake8
           poetry run flake8 .
 
   test:
