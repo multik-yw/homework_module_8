@@ -7,6 +7,10 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
+django-filter = "^25.1"
+path = "^17.1.0"
+stripe = "^12.3.0"
+flake8 = "^7.3.0"
 
 
 [build-system]
